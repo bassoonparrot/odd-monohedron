@@ -1,35 +1,38 @@
-# A polyhedral sphere with congruent faces has an even number of faces
+# A polyhedron cannot have an odd number of congruent faces
 
 **Author:** Fable 5.2 / prompting by Dan Horwitz
 
-This repository holds a claimed proof of the following.
+This is a claimed answer to the MathOverflow question [Are there monohedra with odd numbers of faces?](https://mathoverflow.net/questions/406120/are-there-monohedra-with-odd-numbers-of-faces) Claimed answer: nope, also without convexity.
 
-> **Theorem 1.** Let a polyhedral sphere in Rᵈ have congruent faces: a cell decomposition of the sphere, its vertices mapped to Rᵈ, every face a planar simple polygon, all faces congruent (mirror images allowed) and meeting edge to edge. If every vertex has degree at least 3, or if the faces are quadrilaterals, then the number of faces is even.
+I started looking into this a little while ago in response to my son's question about D&D dice, hit a wall with some prior models, but was able to get to the general result with Fable 5.2. I'm posting it here in case anyone's interested. The argument below was produced by that AI system. It hasn't been verified by a human, although it looks pretty reasonable to this human.
 
-Convexity and embeddedness are not assumed, and the dimension is arbitrary. For convex polyhedra in R³ the statement goes back to Grünbaum (1960). The general question was asked on MathOverflow in 2021 ([Are there monohedra with odd numbers of faces?](https://mathoverflow.net/questions/406120/are-there-monohedra-with-odd-numbers-of-faces)) and stated as open by Hungerbühler, Hungerbühler and Pirron (*New families of monohedral polyhedra*, J. Math. Arts 19, 2025).
+There are two PDFs in [`paper/`](paper/):
 
-## Status: not verified by a human
+- [`geometers.pdf`](paper/geometers.pdf), for mathematicians: statements, full proof, remarks, references;
+- [`guide.pdf`](paper/guide.pdf), the same proof with figures, which presupposes nothing beyond basic undergraduate math.
 
-The proof was found in November 2026 by an AI system (Claude Fable 5.2, Anthropic). **No human mathematician has verified it.** It is published here so that it can be read and checked. Corrections, and references to earlier work, are welcome as issues on this repository.
+## Claims
 
-## The argument in brief
+"Polyhedron" means a closed surface with the topology of a sphere, made of flat faces meeting edge to edge. It may be non-convex, may cross itself, and may sit in any dimension.
 
-1. **Reduction.** Counting sides and Euler's formula leave quadrilateral faces in which every side length occurs twice: parallelograms and kites (darts included).
-2. **Parallelograms.** Strips of faces joined through opposite sides (zones) are closed curves that never cross themselves, and two closed curves on a sphere cross an even number of times.
-3. **Kites.** Lift every vertex by one extra coordinate, a height that depends only on the combinatorics and on the shape of the kite, and weight that coordinate so that two angles of every lifted face become right angles. Every face is then inscribed in a circle (in a Lorentzian plane if the weight is negative, as for darts).
-4. **The sign.** Round a quadrilateral inscribed in a circle, the reflections that reverse its four sides compose to one full turn, which is −1 on spinors. With the edge vectors as elements of a Clifford algebra, every face has holonomy exactly −1.
-5. **The sphere.** On a sphere, face holonomies that are central multiply to 1. So (−1)^F = 1.
+1. **Congruent faces.** A polyhedron with congruent faces and at least three faces at every vertex has an even number of faces.
+2. **Faces inscribed in circles.** A polyhedron whose faces are convex quadrilaterals, each inscribed in a circle, has an even number of faces. The faces need not be congruent and the circles are unrelated.
+3. **Larger faces.** A polyhedron whose faces are convex polygons with an even number of sides, each inscribed in a circle, has an even number of vertices. Equivalently, the number of faces with 4, 8, 12, … sides is even. (The paper proves a more general form: the faces need only have equal sums of alternate angles.)
+4. **The sphere is needed.** All three fail on a torus: 9 congruent squares form one in R⁴. Whether an odd torus exists in R³ is open.
 
-Step 5 fails on other surfaces, and so does the theorem: 9 congruent squares form a torus in R⁴, and 27 congruent squares form a two-coloured torus in R⁶.
+## Sketch of 1
 
-Steps 4 and 5 give a statement of their own (Theorem 2 of the paper): a polyhedral sphere whose faces are convex polygons with an even number of sides and equal sums of alternate angles, for instance polygons inscribed in circles, has an even number of vertices. The faces need not be congruent. This is close to known results: Fomin and Pylyavskyy, *Incidences and tilings* (arXiv:2305.07728), Corollary 11.6, in the plane; and Izosimov, *Surface topology and incidence theorems over division rings* (arXiv:2603.00288), Theorem 7.3, on the sphere. Fomin and Pylyavskyy also count signs (their §10: an even number of anticoherent tiles), for points and lines. What is new there is only the parity conclusion for faces inscribed in circles. Step 3 is the part we did not find anywhere.
+1. As in the comments on the question by M. Winter and David Eppstein, counting and Euler leave quadrilaterals in which each side length occurs twice: parallelograms and kites (darts included).
+2. Parallelograms: the zones are closed curves that never cross themselves, and two closed curves on a sphere cross evenly. (The zonohedron argument needs convexity; this does not.)
+3. Kites: lift each vertex by one extra coordinate, a height determined by the combinatorics and the kite's shape, weighted so that two angles of every lifted face become right angles. Each face is then inscribed in a circle (in a Lorentzian plane for darts), and the argument for claim 2 applies; the paper does this algebraically, in any signature.
 
-## Contents
+## Sketch of 2 and 3
 
-| path | what it is |
-|---|---|
-| `paper/geometers.pdf` | the paper: statements, full proof, remarks, references. Start here |
-| `paper/guide.pdf` | the same proof for readers with first-year university mathematics, with figures |
+Take the edge vectors in the Clifford algebra. Round a convex face inscribed in a circle, the reflections that reverse its sides compose to one full turn, which is −1 on spinors. Each edge is run backwards by one of its two faces, which gives another −1 per edge. On a sphere these all multiply to +1, so faces + edges is even, and by Euler that is the parity of the number of vertices. For quadrilaterals there are twice as many edges as faces, so the number of faces is even.
+
+Claims 2 and 3 are close to known results: Fomin–Pylyavskyy (arXiv:2305.07728, Cor. 11.6, and §10 for the count of signs) and Izosimov (arXiv:2603.00288, Thm. 7.3). What seems new there is only the conclusion for faces inscribed in circles. The lift in step 3 of the first sketch is what I could not find anywhere.
+
+Corrections, and references to earlier work, are welcome as issues on this repository.
 
 ## Licence
 
